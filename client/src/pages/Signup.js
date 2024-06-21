@@ -13,6 +13,8 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useForm, Controller } from "react-hook-form";
+import { useSignup } from '../hooks/useSignup';
+import { useAsyncError } from 'react-router-dom';
 
 function Copyright(props) {
   return (
@@ -33,19 +35,28 @@ const defaultTheme = createTheme();
 
 export default function SignUp() {
   const {
-    field,
     handleSubmit,
     control,
     formState: { errors }
-  } = useForm()
+  } = useForm({
+    defaultValues: {
+      email: '',
+      password: ''
+    }
+  })
 
-  const onSubmit = (data) => {
+  const { signup, isLoading, error } = useSignup()
+
+  const onSubmit = async (data) => {
 
     console.log({
       email: data.email,
       password: data.password,
     });
-  };
+
+    await signup(data.email, data.password)
+
+  }
 
   return (
     <ThemeProvider theme={defaultTheme}>
@@ -120,13 +131,15 @@ export default function SignUp() {
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
+              disabled={isLoading}
             >
-              Sign Up
+              {isLoading ? 'Submitting...' : "Sign Up"}
             </Button>
+            {error && <Typography color='error'>{error}</Typography>}
             <Grid container justifyContent="flex-end">
               <Grid item>
-                <Link href="#" variant="body2">
-                  Already have an account? Sign in
+                <Link href="/login" variant="body2">
+                  Already have an account? Log in
                 </Link>
               </Grid>
             </Grid>
