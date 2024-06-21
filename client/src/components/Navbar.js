@@ -20,8 +20,13 @@ const Navbar = () => {
 
       <div className='mx-auto flex w-1/5'>
         <nav className='flex flex-row space-x-4'>
-          <button onClick={handleClick}>Log out</button>
-          <Link to='/signup1'>
+          <button 
+            onClick={handleClick}
+            className='text-xl text-nowrap '
+          >
+            Log out
+          </button>
+          <Link to='/signup'>
             <h1 className='text-xl text-nowrap my-10'>Sign up</h1>
           </Link>
           <Link to='/login'>

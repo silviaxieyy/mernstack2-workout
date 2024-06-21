@@ -13,6 +13,7 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useForm, Controller } from "react-hook-form";
+import { useLogin } from '../hooks/useLogin';
 
 function Copyright(props) {
   return (
@@ -37,14 +38,24 @@ export default function Login() {
     handleSubmit,
     control,
     formState: { errors }
-  } = useForm()
+  } = useForm({
+    defaultValues: {
+      email: '',
+      password: ''
+    }
+  })
 
-  const onSubmit = (data) => {
+  const { login, isLoading, error } = useLogin()
+
+  const onSubmit = async (data) => {
 
     console.log({
       email: data.email,
       password: data.password,
     });
+
+    await login(data.email, data.password)
+
   };
 
   return (
@@ -120,8 +131,9 @@ export default function Login() {
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
+              disabled={isLoading}
             >
-              Log In
+              {isLoading ? "Submitting..." : "Log In"}
             </Button>
           </Box>
         </Box>
