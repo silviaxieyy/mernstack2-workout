@@ -1,9 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useLogout } from '../hooks/useLogout';
+import { useAuthContext } from '../hooks/useAuthContext';
 
 const Navbar = () => {
   const { logout } = useLogout()
+  const { user } = useAuthContext()
+  console.log(user?.email)
 
   const handleClick = () => {
     logout()
@@ -18,20 +21,32 @@ const Navbar = () => {
         </Link>
       </div>
 
-      <div className='mx-auto flex w-1/5'>
-        <nav className='flex flex-row space-x-4'>
-          <button 
-            onClick={handleClick}
-            className='text-xl text-nowrap '
-          >
-            Log out
-          </button>
-          <Link to='/signup'>
-            <h1 className='text-xl text-nowrap my-10'>Sign up</h1>
-          </Link>
-          <Link to='/login'>
-            <h1 className='text-xl text-nowrap my-10'>Log in</h1>
-          </Link>
+      <div className='flex flex-row mx-2 flex'>
+        <nav className='flex flex-row flex-nowrap space-x-4'>
+        {user && (
+          <div className='flex flex-row justify-between'>
+            <p className='text-xl text-nowrap mx-2'>{user.email}</p>
+            <button 
+              onClick={handleClick}
+              className='text-xl text-nowrap mx-2'
+            >
+              Log out
+            </button>
+          </div>
+        )}
+        {!user && (
+          <div className='flex flex-row'>
+            <Link to='/signup'>
+              <h1 className='text-xl text-nowrap mx-2'>Sign up</h1>
+            </Link>
+            <Link to='/login'>
+              <h1 className='text-xl text-nowrap mx-2'>Log in</h1>
+            </Link>
+          </div>
+        )}
+
+
+
         </nav>
       </div>
     </header>

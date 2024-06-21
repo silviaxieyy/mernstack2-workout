@@ -34,9 +34,9 @@ const defaultTheme = createTheme();
 
 export default function Login() {
   const {
-    field,
     handleSubmit,
     control,
+    reset,
     formState: { errors }
   } = useForm({
     defaultValues: {
@@ -55,7 +55,7 @@ export default function Login() {
     });
 
     await login(data.email, data.password)
-
+    reset();
   };
 
   return (
