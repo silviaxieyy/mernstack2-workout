@@ -14,7 +14,6 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useForm, Controller } from "react-hook-form";
 import { useSignup } from '../hooks/useSignup';
-import { useAsyncError } from 'react-router-dom';
 
 function Copyright(props) {
   return (
