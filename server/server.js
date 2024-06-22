@@ -8,6 +8,11 @@ const app = express()
 
 //middleware
 app.use(express.json())
+app.use(cores({
+  origin: 'http://mernstack2-workout.vercel.app',
+  methods: ['GET', 'POST', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+}))
 
 app.use((req, res, next) => {
   console.log(req.path, req.method)
