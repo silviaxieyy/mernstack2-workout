@@ -1,5 +1,6 @@
 require('dotenv').config()
 const express = require('express')
+const cors = require('cors')
 const mongoose = require('mongoose')
 const workoutRoutes = require('./routes/workouts')
 const userRoutes = require('./routes/users')
@@ -8,6 +9,11 @@ const app = express()
 
 //middleware
 app.use(express.json())
+app.use(cors({
+  origin: 'http://mernstack2-workout.vercel.app',
+  methods: ['GET', 'POST', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+}))
 
 app.use((req, res, next) => {
   console.log(req.path, req.method)
