@@ -78,7 +78,7 @@ const WorkoutForm = () => {
         </div>
         <div className='flex justify-center'>
           <button 
-            className='bg-blue-400 hover:bg-blue-400 rounded-md p-1 my-2'
+            className='bg-sky-300 hover:bg-blue-500 rounded-md px-4 py-1 my-2'
           >
             Create
           </button>

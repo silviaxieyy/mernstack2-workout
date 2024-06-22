@@ -18,7 +18,7 @@ export const useSignup = () => {
       })
   
       const result = await response.json()
-      console.log(result)
+  /*     console.log(result) */
 
       if (!response.ok) {
         setIsLoading(false)
@@ -27,7 +27,7 @@ export const useSignup = () => {
   
       if (response.ok) {
         //save the user to local storage
-        console.log(JSON.stringify(result))
+        //console.log(JSON.stringify(result))
         localStorage.setItem('user', JSON.stringify(result))
   
         //update the auth context

@@ -48,10 +48,10 @@ export default function SignUp() {
 
   const onSubmit = async (data) => {
 
-    console.log({
+/*     console.log({
       email: data.email,
       password: data.password,
-    });
+    }); */
 
     await signup(data.email, data.password)
 

@@ -49,10 +49,10 @@ export default function Login() {
 
   const onSubmit = async (data) => {
 
-    console.log({
+ /*    console.log({
       email: data.email,
       password: data.password,
-    });
+    }); */
 
     await login(data.email, data.password)
     reset();

@@ -6,7 +6,7 @@ import { useAuthContext } from '../hooks/useAuthContext';
 const Navbar = () => {
   const { logout } = useLogout()
   const { user } = useAuthContext()
-  console.log(user?.email)
+/*   console.log(user?.email) */
 
   const handleClick = () => {
     logout()
@@ -28,7 +28,7 @@ const Navbar = () => {
             <p className='text-xl text-nowrap mx-2'>{user.email}</p>
             <button 
               onClick={handleClick}
-              className='text-xl text-nowrap mx-2'
+              className='text-xl text-nowrap px-4 mx-2 bg-green-50 rounded-2xl'
             >
               Log out
             </button>
@@ -37,10 +37,10 @@ const Navbar = () => {
         {!user && (
           <div className='flex flex-row'>
             <Link to='/signup'>
-              <h1 className='text-xl text-nowrap mx-2'>Sign up</h1>
+              <h1 className='text-xl text-nowrap px-4 mx-2 bg-blue-100 rounded-2xl'>Sign up</h1>
             </Link>
             <Link to='/login'>
-              <h1 className='text-xl text-nowrap mx-2'>Log in</h1>
+              <h1 className='text-xl text-nowrap px-4 mx-2 bg-blue-100 rounded-2xl'>Log in</h1>
             </Link>
           </div>
         )}

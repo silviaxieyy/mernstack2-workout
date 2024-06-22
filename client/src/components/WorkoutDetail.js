@@ -39,9 +39,11 @@ const WorkoutDetail = ({ workout }) => {
           <h3 className="text-3xl font-bold text-blue-400 py-1">{workout.title} </h3>
           <button 
             onClick={handleClick}
-            className='bg-green-300 hover:bg-blue-400 rounded-md p-1 m-2'
+            className='m-4'
           >
-            Delete
+            <span class="material-symbols-outlined">
+              delete
+            </span>
           </button>
         </div>
         <p className="text-base py-1"><strong>Load (kg): </strong>{workout.load}</p>

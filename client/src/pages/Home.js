@@ -30,13 +30,13 @@ const Home = () => {
   },[dispatch, user])
 
   return (
-    <div className="flex flex-wrap">
-      <div className='flex flex-col w-2/3'>
+    <div className="flex flex-col lg:flex-row lg:flex-wrap">
+      <div className='flex flex-col w-full lg:w-2/3'>
         {workouts && workouts.map((workout) => (
           <WorkoutDetail key={workout._id} workout={workout} />
         ))}
       </div>
-      <div className='flex flex-col w-1/3'>
+      <div className='flex flex-col w-full lg:w-1/3'>
         <WorkoutForm />
       </div>
     </div>
