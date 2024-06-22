@@ -1,5 +1,6 @@
 require('dotenv').config()
 const express = require('express')
+const path = require('path');
 const cors = require('cors')
 const mongoose = require('mongoose')
 const workoutRoutes = require('./routes/workouts')
@@ -14,6 +15,12 @@ app.use(cors({
   methods: ['GET', 'POST', 'DELETE'],
   allowedHeaders: ['Content-Type', 'Authorization']
 }))
+
+app.use(express.static(path.join(__dirname, 'client', 'build')));
+
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'client', 'build', 'index.html'));
+});
 
 app.use((req, res, next) => {
   console.log(req.path, req.method)
