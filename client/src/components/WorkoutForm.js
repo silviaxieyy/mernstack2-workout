@@ -1,8 +1,12 @@
+import { useState } from 'react';
 import { useForm } from 'react-hook-form'
-import { UseWorkoutsContext } from '../hooks/useWorkoutsContext'
+import { useWorkoutsContext } from '../hooks/useWorkoutsContext'
+import { useAuthContext } from '../hooks/useAuthContext';
 
 const WorkoutForm = () => {
-  const { dispatch } = UseWorkoutsContext();
+  const { dispatch } = useWorkoutsContext();
+  const {user} = useAuthContext()
+  const [authError, setAuthError] = useState('')
 
   const {
     register,
@@ -12,12 +16,21 @@ const WorkoutForm = () => {
   } = useForm()
 
   const onSubmit = async (data) => {
+    if (!user) {
+      setAuthError('You must be logged in to create a workout.')
+      return 
+    }
+
+    setAuthError('')
+
     try {
       const response = await fetch('/api/workouts', {
         method:'POST',
         body: JSON.stringify(data),
         headers: {
-          'content-Type': 'application/json'
+          'content-Type': 'application/json',
+          'Authorization': `Bearer ${user.token}`
+
         }
       })
       const newWorkout = await response.json()
@@ -69,6 +82,7 @@ const WorkoutForm = () => {
           >
             Create
           </button>
+          {authError && <span className='text-red-500'>{authError}</span>}
         </div>
       </div>
 

@@ -1,8 +1,11 @@
 import { format, isValid } from 'date-fns'
-import { UseWorkoutsContext } from '../hooks/useWorkoutsContext'
+import { useWorkoutsContext } from '../hooks/useWorkoutsContext'
+import { useAuthContext } from '../hooks/useAuthContext'
+
 
 const WorkoutDetail = ({ workout }) => {
-  const { dispatch } = UseWorkoutsContext()
+  const { dispatch } = useWorkoutsContext()
+  const { user } = useAuthContext()
 
   const createdAt = new Date(workout.createdAt)
   const updatedAt = new Date(workout.updatedAt)
@@ -11,8 +14,16 @@ const WorkoutDetail = ({ workout }) => {
   const formatedUpdatedAt = isValid(updatedAt) ? format(updatedAt, 'dd-MM-yyyy HH:mm:ss') : ''
 
   const handleClick = async () => {
+    if (!user) {
+      return
+    }
+
     const response = await fetch('/api/workouts/' + workout._id, {
-      method: 'DELETE'
+      method: 'DELETE',
+      headers: {
+      'Authorization': `Bearer ${user.token}`
+      }
+
     })
     const deletedWorkout = await response.json()
 
